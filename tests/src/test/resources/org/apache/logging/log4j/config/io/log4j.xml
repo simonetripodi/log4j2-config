@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn" name="XMLConfigTest" packages="org.apache.logging.log4j.test">
+  <properties>
+    <filename>target/test.log</filename>
+  </properties>
+  <filter type="ThresholdFilter" level="debug" />
+  <appenders>
+    <appender type="Console" name="STDOUT">
+      <layout type="PatternLayout" pattern="%m MDC%X%n" />
+      <filters>
+        <filter type="MarkerFilter" marker="FLOW" onMatch="DENY" onMismatch="NEUTRAL" />
+        <filter type="MarkerFilter" marker="EXCEPTION" onMatch="DENY" onMismatch="ACCEPT" />
+      </filters>
+    </appender>
+  </appenders>
+  <loggers>
+    <logger name="org.apache.logging.log4j.test1">
+      <filters>
+        <filter type="ThreadContextMapFilter">
+          <properties>
+            <test>123</test>
+          </properties>
+        </filter>
+      </filters>
+      <appender ref="STDOUT" />
+    </logger>
+  </loggers>
+</configuration>
